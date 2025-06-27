@@ -1,0 +1,83 @@
+/* ---------- variables ---------- */
+:root {
+  --primary: #2563ff;
+  --primary-dark: #1e4ddc;
+  --gradient-start: #c3eaff;
+  --gradient-end: #f7faff;
+  --text-dark: #1e293b;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* ---------- layout ---------- */
+html,
+body,
+#root,
+.app {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6vh;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  color: var(--text-dark);
+}
+
+.title {
+  margin-bottom: 2vh;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+}
+
+/* ---------- wheel styling ---------- */
+.wheel-wrapper {
+  position: relative;
+  /* width: min(80vw, 360px); */
+  /* scales on mobile, max 360 px */
+  margin: 0 auto;
+}
+
+.wheel-wrapper canvas {
+  width: 100% !important;
+  /* force the canvas to fit container */
+  height: auto !important;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .15));
+}
+
+/* ---------- spin button ---------- */
+.spin-btn {
+  margin: 6vh 0 2vh;
+  padding: 14px 40px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform .15s ease, background .25s ease;
+}
+
+.spin-btn:hover:not(:disabled) {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
+
+.spin-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+/* ---------- small devices tweaks ---------- */
+@media (max-height: 600px) {
+  .spin-btn {
+    margin: 4vh 0 1vh;
+  }
+}
