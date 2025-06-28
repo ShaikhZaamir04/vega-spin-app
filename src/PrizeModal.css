@@ -57,6 +57,17 @@
     cursor: pointer;
 }
 
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+button.primary {
+    background: #2563ff;
+    color: #fff;
+}
+
 /* animations */
 @keyframes fadeIn {
     from {

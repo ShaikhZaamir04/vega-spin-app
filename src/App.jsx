@@ -11,6 +11,10 @@ const data = [
   { option: 'Free Earpods' }
 ];
 
+/* Google‑Form pre‑fill base (keep the “=” at the end) */
+const FORM_PREFILL_BASE =
+  'https://docs.google.com/forms/d/e/1FAIpQLSfnLxuHqkZ766WjisV7d5L6brHhXLmN43haxDOzQ-aSdkW9pw/viewform?usp=pp_url&entry.1920605478=';
+
 export default function App() {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
@@ -26,16 +30,22 @@ export default function App() {
 
   const handleStop = () => {
     setMustSpin(false);
-    setShowModal(true);    // show popup
+    setShowModal(true);        // open popup
   };
 
   const prize = data[prizeNumber].option;
 
+  /* redirect to the Google Form with prize pre‑filled */
+  const handleClaim = () => {
+    const url = FORM_PREFILL_BASE + encodeURIComponent(prize);
+    window.location.href = url;   // same‑tab redirect
+  };
+
   return (
     <main className="app">
-      <h1 className="title">🎉 Spin &amp; Win 🎉</h1>
+      <h1 className="title">🎉 Spin & Win 🎉</h1>
 
-      {/* wheel + pointer */}
+      {/* wheel + custom arrow pointer */}
       <div className="wheel-wrapper">
         <div className="pointer" />
         <Wheel
@@ -43,15 +53,15 @@ export default function App() {
           prizeNumber={prizeNumber}
           data={data}
           backgroundColors={['#7bdff2', '#b2f7ef', '#eff7f6', '#f7d6e0', '#f5b0cb']}
-          textColors={['#000000']}
+          textColors={['#000']}
           outerBorderColor="#4a4747"
           outerBorderWidth={3}
           innerBorderColor="#4a4747"
           innerBorderWidth={6}
           radiusLineColor="#4a4747"
           radiusLineWidth={2}
+          spinDuration={0.6}  // hide red nib; using CSS arrow
           onStopSpinning={handleStop}
-          spinDuration={0.6}          /* snappier */
         />
       </div>
 
@@ -67,7 +77,8 @@ export default function App() {
       {showModal && (
         <PrizeModal
           prize={prize}
-          onClose={() => setShowModal(false)}
+          // onClose={() => setShowModal(false)}
+          onClaim={handleClaim}
         />
       )}
     </main>
